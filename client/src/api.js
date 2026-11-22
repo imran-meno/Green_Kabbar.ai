@@ -24,7 +24,12 @@ export async function api(path, { method = 'GET', body, form } = {}) {
     }
   }
   if (!response.ok) {
-    const error = new Error(data.error || `Request failed (${response.status}).`);
+    const message = typeof data.error === 'string'
+      ? data.error
+      : typeof data.error?.message === 'string'
+        ? data.error.message
+        : `Request failed (${response.status}).`;
+    const error = new Error(message);
     error.status = response.status;
     throw error;
   }
