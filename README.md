@@ -41,9 +41,10 @@ variables in the hosting providers; do not commit real `.env` files:
   `https://your-client.example.com`, without a trailing slash). Set `PORT` only if
   your API host requires it. Configure `GEMINI_API_KEY` or `ML_URL` if you want
   real scrap identification.
-- **Client host:** set `VITE_API_URL` to the API's public origin (for example,
-  `https://your-api.example.com`, without a trailing slash), then build the client
-  with `npm run build` from `client`. Vite embeds this value at build time.
+- **Client host:** `VITE_API_URL` can override the production API origin
+  (`https://green-kabbar-ai.onrender.com` by default). Set it to the API's public
+  origin without a trailing slash if that address changes, then rebuild the client.
+  Vite embeds this value at build time.
 - Allow the client origin in the API's CORS settings. The API origin must support
   both `/api` requests and Socket.IO connections at `/socket.io`.
 

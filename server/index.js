@@ -22,7 +22,7 @@ if (!JWT_SECRET || JWT_SECRET.length < 32 || JWT_SECRET.startsWith('replace_with
 
 const app = express();
 const server = http.createServer(app);
-const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+const clientUrl = new URL(process.env.CLIENT_URL || 'http://localhost:5173').origin;
 const io = new Server(server, { cors: { origin: clientUrl } });
 const upload = multer({
   storage: multer.memoryStorage(),

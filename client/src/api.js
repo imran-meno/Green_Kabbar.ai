@@ -1,4 +1,6 @@
-export const API_BASE_URL = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
+const configuredApiUrl = import.meta.env.VITE_API_URL
+  || (import.meta.env.PROD ? 'https://green-kabbar-ai.onrender.com' : '');
+export const API_BASE_URL = configuredApiUrl.replace(/\/+$/, '');
 export const tok=()=>localStorage.getItem('gk_token');
 
 export async function api(path, { method = 'GET', body, form } = {}) {
