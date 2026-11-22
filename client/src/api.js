@@ -1,3 +1,4 @@
+export const API_BASE_URL = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
 export const tok=()=>localStorage.getItem('gk_token');
 
 export async function api(path, { method = 'GET', body, form } = {}) {
@@ -6,7 +7,7 @@ export async function api(path, { method = 'GET', body, form } = {}) {
   if (token) headers.Authorization = `Bearer ${token}`;
   if (body) headers['Content-Type'] = 'application/json';
 
-  const response = await fetch(`/api${path}`, {
+  const response = await fetch(`${API_BASE_URL}/api${path}`, {
     method,
     headers,
     body: form || (body ? JSON.stringify(body) : undefined),

@@ -56,7 +56,7 @@ export default function AuthPage({ mode }) {
         {error && <div className="form-error error-shake" role="alert">{error}</div>}
         {isRegister && (
           <>
-            <label className="field-label">Full name<input name="name" autoComplete="name" placeholder="e.g. Sana Ahmed" value={form.name} onChange={update} required /></label>
+            <label className="field-label">Full name<input name="name" autoComplete="name" placeholder="Enter Your Name" value={form.name} onChange={update} required /></label>
             <label className="field-label">Phone number<input name="phone" type="tel" autoComplete="tel" placeholder="03xx xxxxxxx" pattern="[0-9+() -]{7,20}" title="Enter a valid phone number." value={form.phone} onChange={update} required /></label>
             <div className="field-label pickup-location-field">
               Pickup location in Sukkur <span className="required-label">required</span>

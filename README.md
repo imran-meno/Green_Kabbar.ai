@@ -31,6 +31,25 @@ You need Node.js 20 or newer and a running MongoDB instance.
 
 3. Open the Vite URL shown in the client terminal (usually `http://localhost:5173`).
 
+## Deployment
+
+The client and API can be deployed on separate origins. Configure these environment
+variables in the hosting providers; do not commit real `.env` files:
+
+- **API host:** set `MONGO_URI` and a unique `JWT_SECRET` of at least 32 characters.
+  Set `CLIENT_URL` to the exact public client origin (for example,
+  `https://your-client.example.com`, without a trailing slash). Set `PORT` only if
+  your API host requires it. Configure `GEMINI_API_KEY` or `ML_URL` if you want
+  real scrap identification.
+- **Client host:** set `VITE_API_URL` to the API's public origin (for example,
+  `https://your-api.example.com`, without a trailing slash), then build the client
+  with `npm run build` from `client`. Vite embeds this value at build time.
+- Allow the client origin in the API's CORS settings. The API origin must support
+  both `/api` requests and Socket.IO connections at `/socket.io`.
+
+For local development, leave `VITE_API_URL` unset so Vite uses the proxy in
+`client/vite.config.js`; set `CLIENT_URL=http://localhost:5173` in `server/.env`.
+
 ## Scrap prediction and rates
 
 - The project can use Google's Gemini 3.5 Flash-Lite image API. Create a Gemini API key in [Google AI Studio](https://aistudio.google.com/apikey), then add `GEMINI_API_KEY=your_key` to `server/.env`. Keep this key on the server; never put it in React code or commit it.

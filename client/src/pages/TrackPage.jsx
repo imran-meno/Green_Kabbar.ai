@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { io } from 'socket.io-client';
-import { api, tok } from '../api.js';
+import { API_BASE_URL, api, tok } from '../api.js';
 import { useAuth } from '../context/AuthContext.jsx';
 
 export default function TrackPage() {
@@ -19,7 +19,7 @@ export default function TrackPage() {
       .then((data) => {
         if (!active) return;
         setOrder(data);
-        socket = io();
+        socket = API_BASE_URL ? io(API_BASE_URL) : io();
         socket.on('connect_error', () => setError('Pickup updates are temporarily unavailable.'));
         socket.on('tracking_error', (message) => setError(message.error));
         socket.on('pos', setPosition);
