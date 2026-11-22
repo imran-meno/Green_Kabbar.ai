@@ -37,10 +37,11 @@ The client and API can be deployed on separate origins. Configure these environm
 variables in the hosting providers; do not commit real `.env` files:
 
 - **API host:** set `MONGO_URI` and a unique `JWT_SECRET` of at least 32 characters.
-  Set `CLIENT_URL` to the exact public client origin (for example,
-  `https://your-client.example.com`, without a trailing slash). Set `PORT` only if
-  your API host requires it. Configure `GEMINI_API_KEY` or `ML_URL` if you want
-  real scrap identification.
+  Set `CLIENT_URL` to the exact public client origin(s), without trailing slashes.
+  Separate multiple origins with commas, for example
+  `https://your-client.example.com,https://your-preview.example.com`. Set `PORT`
+  only if your API host requires it. Configure `GEMINI_API_KEY` or `ML_URL` if you
+  want real scrap identification.
 - **Client host:** `VITE_API_URL` can override the production API origin
   (`https://green-kabbar-ai.onrender.com` by default). Set it to the API's public
   origin without a trailing slash if that address changes, then rebuild the client.

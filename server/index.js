@@ -22,8 +22,10 @@ if (!JWT_SECRET || JWT_SECRET.length < 32 || JWT_SECRET.startsWith('replace_with
 
 const app = express();
 const server = http.createServer(app);
-const clientUrl = new URL(process.env.CLIENT_URL || 'http://localhost:5173').origin;
-const io = new Server(server, { cors: { origin: clientUrl } });
+const clientUrls = (process.env.CLIENT_URL || 'http://localhost:5173')
+  .split(',')
+  .map((url) => new URL(url.trim()).origin);
+const io = new Server(server, { cors: { origin: clientUrls } });
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 8 * 1024 * 1024 },
@@ -36,7 +38,7 @@ const upload = multer({
   },
 });
 
-app.use(cors({ origin: clientUrl }));
+app.use(cors({ origin: clientUrls }));
 app.use(express.json({ limit: '32kb' }));
 
 try {
